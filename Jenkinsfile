@@ -21,7 +21,7 @@ pipeline {
                     //sh 'docker cp temporary-container:/var/www/java/target/spring-reports .'
                     //sh 'docker rm temporary-container'
                     //junit 'spring-reports'
-                    junit 'loadrunner/reports/**/*.xml'
+                    junit '/var/jenkins_home/workspace/loadrunner/demo/reports/*.xml'
                 }
             }
         }
