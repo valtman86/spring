@@ -17,10 +17,11 @@ pipeline {
             }
             post {
                 always {
-                    sh 'docker create --name temporary-container spring-image'
-                    sh 'docker cp temporary-container:/var/www/java/target/spring-reports .'
-                    sh 'docker rm temporary-container'
-                    junit 'spring-reports'
+                    //sh 'docker create --name temporary-container spring-image'
+                    //sh 'docker cp temporary-container:/var/www/java/target/spring-reports .'
+                    //sh 'docker rm temporary-container'
+                    //junit 'spring-reports'
+                    junit 'loadrunner/reports/**/*.xml'
                 }
             }
         }
