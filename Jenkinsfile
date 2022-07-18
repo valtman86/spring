@@ -16,14 +16,22 @@ pipeline {
                 sh 'mvn -f demo/pom.xml test'
             }
             post {
-                always {
+                success {
+                   script {
+                       echo "This will execute if the Job is Successful"
+                       def response = httpRequest 'http://localhost:8080/jenkins/api/json?pretty=true'
+                    }
+                }
+            }
+             //post {
+               // always {
                     //sh 'docker create --name temporary-container spring-image'
                     //sh 'docker cp temporary-container:/var/www/java/target/spring-reports .'
                     //sh 'docker rm temporary-container'
                     //junit 'spring-reports'
-                    junit 'target/surefire-reports/*.xml'
-                }
-            }
+                 //   junit 'target/surefire-reports/*.xml'
+                //}
+            //}
         }
     }
 }
