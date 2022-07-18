@@ -25,6 +25,11 @@ pipeline {
                     junit allowEmptyResults: true, testResults:"${WORKSPACE}/test-results/*.xml"
                 }
             }
+          stage('Deliver') { 
+            steps {
+                sh './jenkins/scripts/deliver.sh' 
+            }
+        }
         }
     }
 }
