@@ -23,8 +23,11 @@ pipeline {
         }
         stage('Deliver') { 
             steps {
-                sh "chmod +x -R ${env.WORKSPACE}"
-                sh './deliver.sh' 
+                //sh "chmod +x -R ${env.WORKSPACE}"
+                //sh './deliver.sh' 
+                checkout scm
+                sh './mvnw -B -DskipTests clean package'
+                docker.build("myorg/myapp").push()
             }
         }
         
