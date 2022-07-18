@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker {
+        docker-agent {
             image 'maven:3.8.1-adoptopenjdk-11' 
             args '-v /root/.m2:/root/.m2' 
         }
@@ -15,14 +15,7 @@ pipeline {
             steps {
                 sh 'mvn -f demo/pom.xml test'
             }
-            post {
-                success {
-                   script {
-                       echo "This will execute if the Job is Successful"
-                       def response = httpRequest 'http://localhost:8080/jenkins/api/json?pretty=true'
-                    }
-                }
-            }
+            
              //post {
                // always {
                     //sh 'docker create --name temporary-container spring-image'
