@@ -22,7 +22,7 @@ pipeline {
                     //sh 'docker cp temporary-container:/var/www/java/target/spring-reports .'
                     //sh 'docker rm temporary-container'
                     //junit 'spring-reports'
-                    junit 'target/surefire-reports/*.xml'
+                    junit "${WORKSPACE}/test-results/*.xml"'
                 }
             }
         }
