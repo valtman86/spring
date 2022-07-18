@@ -11,25 +11,21 @@ pipeline {
                 sh 'mvn -f demo/pom.xml -B -DskipTests clean package' 
             }
         }
-         stage('Test') {
+        stage('Test') {
             steps {
                 sh 'mvn -f demo/pom.xml test'
             }
-            
-             post {
+            post {
                 always {
-                    //sh 'docker create --name temporary-container spring-image'
-                    //sh 'docker cp temporary-container:/var/www/java/target/spring-reports .'
-                    //sh 'docker rm temporary-container'
-                    //junit 'spring-reports'
                     junit allowEmptyResults: true, testResults:"${WORKSPACE}/test-results/*.xml"
                 }
             }
-          stage('Deliver') { 
+        }
+        stage('Deliver') { 
             steps {
                 sh 'deliver.sh' 
             }
         }
-        }
+        
     }
 }
