@@ -16,15 +16,15 @@ pipeline {
                 sh 'mvn -f demo/pom.xml test'
             }
             
-             //post {
-               // always {
+             post {
+                always {
                     //sh 'docker create --name temporary-container spring-image'
                     //sh 'docker cp temporary-container:/var/www/java/target/spring-reports .'
                     //sh 'docker rm temporary-container'
                     //junit 'spring-reports'
-                 //   junit 'target/surefire-reports/*.xml'
-                //}
-            //}
+                    junit 'target/surefire-reports/*.xml'
+                }
+            }
         }
     }
 }
