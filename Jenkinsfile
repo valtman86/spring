@@ -26,6 +26,7 @@ pipeline {
                 //sh "chmod +x -R ${env.WORKSPACE}"
                 //sh './deliver.sh' 
                 checkout scm
+                sh 'env && ./mvnw effective-settings'
                 sh 'mvnw -f demo/mvnw -B -DskipTests clean package'
                 script {
                 
