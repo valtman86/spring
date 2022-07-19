@@ -26,7 +26,7 @@ pipeline {
                 //sh "chmod +x -R ${env.WORKSPACE}"
                 //sh './deliver.sh' 
                 checkout scm
-                sh 'mvnw -f demo/mvnw -B -DskipTests clean package'
+                sh './demo/mvnw -B -DskipTests clean package'
                 script {
                 
                    docker.build("loadrunner:${env.BUILD_ID}") 
