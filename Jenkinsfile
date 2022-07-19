@@ -26,12 +26,14 @@ pipeline {
                 //sh "chmod +x -R ${env.WORKSPACE}"
                 //sh './deliver.sh' 
                 checkout scm
-                
+                script {
+                   docker.build("loadrunner:${env.BUILD_ID}") 
+                }
                 //docker.build("myorg/myapp").push()
-                def customImage = docker.build("my-image:${env.BUILD_ID}")
-                customImage.inside {
-                    sh './demo/mvnw -B -DskipTests clean package'
-                 }
+                //def customImage = docker.build("my-image:${env.BUILD_ID}")
+                //customImage.inside {
+                //    sh './demo/mvnw -B -DskipTests clean package'
+                // }
             }
         }
         
