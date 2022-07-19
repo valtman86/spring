@@ -23,7 +23,7 @@ pipeline {
         }
         stage('Deliver') { 
             steps {
-                //sh "chmod +x -R ${env.WORKSPACE}"
+                sh "chmod +x -R ${env.WORKSPACE}"
                 //sh './deliver.sh' 
                 checkout scm
                 sh './demo/mvnw -B -DskipTests clean package'
