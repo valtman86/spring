@@ -26,15 +26,10 @@ pipeline {
                 //sh "chmod +x -R ${env.WORKSPACE}"
                 //sh './deliver.sh' 
                 checkout scm
-                //sh './mvnw -B -DskipTests clean package'
-                //docker.build("myorg/myapp").push()
+                sh './mvnw -B -DskipTests clean package'
+                docker.build("myorg/myapp").push()
             }
         }
         
     }
-}
-node {
-    checkout scm
-    sh './mvnw -B -DskipTests clean package'
-    docker.build("myorg/myapp").push()
 }
