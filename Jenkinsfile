@@ -29,7 +29,7 @@ pipeline {
                 sh './demo/mvnw -B -DskipTests clean package'
                 script {
                 
-                   docker.build("loadrunner:${env.BUILD_ID}") 
+                   docker.build("loadrunner:${env.BUILD_ID}","-f ${dockerfile} ./demo") 
                 }
                 //docker.build("myorg/myapp").push()
                 //def customImage = docker.build("my-image:${env.BUILD_ID}")
