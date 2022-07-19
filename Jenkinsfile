@@ -27,7 +27,7 @@ pipeline {
                 //sh './deliver.sh' 
                 checkout scm
                 
-                docker.build("myorg/myapp").push()
+                //docker.build("myorg/myapp").push()
                 def customImage = docker.build("my-image:${env.BUILD_ID}")
                 customImage.inside {
                     sh './demo/mvnw -B -DskipTests clean package'
