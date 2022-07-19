@@ -26,10 +26,10 @@ pipeline {
                 //sh "chmod +x -R ${env.WORKSPACE}"
                 //sh './deliver.sh' 
                 checkout scm
-                sh './demo/mvnw -B -DskipTests clean package'
+                sh 'mvnw -f demo/mvnw -B -DskipTests clean package'
                 script {
                 
-                   docker.build("loadrunner:${env.BUILD_ID}","-f ${dockerfile} ./demo") 
+                   docker.build("loadrunner:${env.BUILD_ID}") 
                 }
                 //docker.build("myorg/myapp").push()
                 //def customImage = docker.build("my-image:${env.BUILD_ID}")
