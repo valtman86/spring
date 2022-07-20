@@ -2,12 +2,31 @@ node {
 
     stage 'checkout project'
     git url: 'https://github.com/valtman86/spring.git'
+    stage('Deliver') { 
+            //agent { dockerfile true }
+            steps {
+                
+                script {
+                sh "docker build -t loadrunner:${env.BUILD_ID} -f ./demo/Dockerfile"
+                sh "docker run -p 8081:8080 loadrunner:${env.BUILD_ID}"
+                //docker.build("loadrunner:${env.BUILD_ID}",'-f ./demo/Dockerfile')
+                //docker.run("loadrunner:${env.BUILD_ID}","-p 8081:8081")
+                sh "curl http://localhost:8081"
+                }
+                //docker.build("myorg/myapp").push()
+                //def customImage = docker.build("my-image:${env.BUILD_ID}")
+                //customImage.inside {
+                //    sh './demo/mvnw -B -DskipTests clean package'
+                // }
+            }
+        }
 
-    stage 'check docker env'
 
-    sh "docker -v"
-    sh "docker-compose -v"
-    sh "docker ps"
+    //stage 'check docker env'
+
+    //sh "docker -v"
+    //sh "docker-compose -v"
+    //sh "docker ps"
 
 //    stage 'build docker env'
 //    sh "make build-docker-env"
