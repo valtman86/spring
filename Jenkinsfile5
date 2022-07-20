@@ -10,7 +10,8 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn -f demo/pom.xml test'
-                sh "docker run -p 8081:8080 loadrunner:${env.BUILD_ID}"
+                sh "docker run -d -p 8081:8080 loadrunner:${env.BUILD_ID}"
+                sh "curl http://localhost:8081"
                 }
         //}    
             //try {
