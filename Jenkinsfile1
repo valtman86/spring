@@ -1,5 +1,6 @@
 node {
     checkout scm
+    sh "chmod +x -R ${env.WORKSPACE}"
     sh './demo/mvnw -B -DskipTests clean package'
     docker.build("myorg/myapp").push()
 }
