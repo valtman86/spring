@@ -1,0 +1,42 @@
+pipeline {
+    agent {
+        docker {
+            image 'maven:3.8.1-adoptopenjdk-11' 
+            args '-v /root/.m2:/root/.m2' 
+        }
+    }
+    stages {
+        stage('Build') { 
+            steps {
+                sh 'mvn -f demo/pom.xml -B -DskipTests clean package' 
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn -f demo/pom.xml test'
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults:"${WORKSPACE}/test-results/*.xml"
+                }
+            }
+        }
+        stage('Deliver') { 
+            steps {
+                
+                script {
+                
+                docker.build("loadrunner:${env.BUILD_ID}",'-f ./demo/Dockerfile')
+                docker.run("loadrunner:${env.BUILD_ID}","-p 8081:8081")
+                sh "curl http://localhost:8081"
+                }
+                //docker.build("myorg/myapp").push()
+                //def customImage = docker.build("my-image:${env.BUILD_ID}")
+                //customImage.inside {
+                //    sh './demo/mvnw -B -DskipTests clean package'
+                // }
+            }
+        }
+        
+    }
+}
