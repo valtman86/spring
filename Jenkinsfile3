@@ -22,6 +22,7 @@ pipeline {
             }
         }
         stage('Deliver') { 
+            agent { dockerfile true }
             steps {
                 
                 script {
