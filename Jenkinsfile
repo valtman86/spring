@@ -11,7 +11,7 @@ pipeline {
             steps {
                 sh 'mvn -f demo/pom.xml test'
                 sh "docker run -d -p 8081:8080 loadrunner:${env.BUILD_ID} -v"
-                sh "curl -v http://0.0.0.0:8081/"
+                sh "curl -v http://20.54.253.85:8081/"
                 sh 'docker ps -q -f status=exited | xargs --no-run-if-empty docker rm'
                 
                 }
