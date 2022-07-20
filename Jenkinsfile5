@@ -4,7 +4,7 @@ pipeline {
         stage('Build') { 
             steps {
                 sh 'mvn -f demo/pom.xml -B -DskipTests clean package'
-                sh "docker build -t loadrunner:${env.BUILD_ID} -f ./demo/Dockerfile1" 
+                sh "docker build -t loadrunner:${env.BUILD_ID} -f ./demo/Dockerfile1 ." 
             }
         }
         stage('Test') {
