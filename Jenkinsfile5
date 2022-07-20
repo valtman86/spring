@@ -1,0 +1,23 @@
+pipeline {
+    stages {
+        stage('Build') { 
+            steps {
+                sh 'mvn -f demo/pom.xml -B -DskipTests clean package'
+                sh "docker build -t loadrunner:${env.BUILD_ID} -f ./demo/Dockerfile1" 
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn -f demo/pom.xml test'
+                sh "docker run -p 8081:8080 loadrunner:${env.BUILD_ID}"
+                sh "curl http://localhost:8081"
+            }
+            post {
+                always {
+                    junit allowEmptyResults: true, testResults:"${WORKSPACE}/test-results/*.xml"
+                }
+            }
+        }
+                
+    }
+}
