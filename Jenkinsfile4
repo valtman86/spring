@@ -7,7 +7,7 @@ node {
             steps {
                 
                 script {
-                sh "docker build -t loadrunner:${env.BUILD_ID} -f ./demo/Dockerfile"
+                sh "docker build -t loadrunner:${env.BUILD_ID} -f ./demo/Dockerfile1"
                 sh "docker run -p 8081:8080 loadrunner:${env.BUILD_ID}"
                 //docker.build("loadrunner:${env.BUILD_ID}",'-f ./demo/Dockerfile')
                 //docker.run("loadrunner:${env.BUILD_ID}","-p 8081:8081")
