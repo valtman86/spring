@@ -10,8 +10,8 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'mvn -f demo/pom.xml test'
-                sh "docker run -d -p 8081:8080 loadrunner:${env.BUILD_ID} -v"
-                sh "curl -v http://0.0.0.0:8081/"
+                sh "docker run -d -p 80:8080 loadrunner:${env.BUILD_ID} -v"
+                sh "curl -v http://0.0.0.0:80/"
                 sh "docker rm loadrunner:${env.BUILD_ID}"
                 //sh "docker rm $(docker stop $(docker ps -a -q --filter ancestor='loadrunner:${env.BUILD_ID}' --format="{{.ID}}"))"
                 }
