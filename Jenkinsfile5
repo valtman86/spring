@@ -12,14 +12,14 @@ pipeline {
                 sh 'mvn -f demo/pom.xml test'
                 sh "docker run -p 8081:8080 loadrunner:${env.BUILD_ID}"
                 }
-        }    
-            try {
-                stage 'Approve, go production'
-                def url = 'http://localhost:8001/'
-                input message: "Does staging at $url look good? ", ok: "Deploy to production"
-                }
-            finally {
-                    sh "docker stop loadrunner:${env.BUILD_ID}"
+        //}    
+            //try {
+            //    stage 'Approve, go production'
+            //    def url = 'http://localhost:8001/'
+            //    input message: "Does staging at $url look good? ", ok: "Deploy to production"
+            //    }
+            //finally {
+            //        sh "docker stop loadrunner:${env.BUILD_ID}"
                         }
                 //sh "curl http://localhost:8081"
             //}
