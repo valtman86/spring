@@ -21,7 +21,7 @@ pipeline {
             //        junit allowEmptyResults: true, testResults:"${WORKSPACE}/test-results/*.xml"
             //    }
             //}
-        //}
+        }
                 
     }
 }
